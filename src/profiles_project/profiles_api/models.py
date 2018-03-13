@@ -7,7 +7,7 @@ from django.contrib.auth.models import BaseUserManager
 class UserProfileManager(BaseUserManager):
     """Helps Django work with our custom user model."""
 
-    def creat_user(self, email, name, password=None):
+    def create_user(self, email, name, password=None):
         """Creates a new user profile"""
 
         if not email:
@@ -21,7 +21,7 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
-    def create_super_user(self, email, name, password):
+    def create_superuser(self, email, name, password):
         """Creates and saves a new superuser with given details."""
 
         user = self.create_user(email, name, password)
