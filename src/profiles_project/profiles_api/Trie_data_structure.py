@@ -60,11 +60,3 @@ class Trie:
 
     def get_root(self):
         return self.root
-
-
-
-
-
-
-
-

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
+import time
 from . import apps
 
 # from . import serializers
@@ -17,15 +17,32 @@ class HelloApiView(APIView):
 
     def get(self, request, format=None):
         """Returns a list of APIView features."""
-        a = request.GET.get('password', '')
+        start_time = time.time()
+        sent_password = request.GET.get('password', '')
 
-        top_1000 = apps.get_top_1000()
+        trie_tree = apps.get_top_1000()
+        password_set = {}
+        response = {}
 
-        if top_1000.contains(a, True):
-            return Response({'message': 'Password is weak'})
+        if trie_tree.contains(sent_password, True):
+            response = {'is_safe': 'No', 'message':'The password is in top 1,000 most common passwords'}
+        elif trie_tree.contains(sent_password, False):
+            response = {'is_safe': 'No', 'message':'The password is prefix of 1,000 most common passwords'}
         else:
-            return Response({'message': 'Password is okay'})
+            password_set = apps.get_top_1000k()
+            # print(password_set)
+            if sent_password in password_set:
+                response = {'is_safe': 'No', 'message':'The password is in top 1,000,000 most common passwords'}
+            else:
+                password_set = apps.get_dictionary()
+                # print(password_set)
+                if sent_password in password_set:
+                    response = {'is_safe': 'No', 'message':'Found in dictionary'}
+                else:
+                    response = {'is_safe': 'Yes', 'message': 'Password was not found in database'}
 
+        response['time'] = str(int((time.time() - start_time) * 1000000)) + ' us'
+        return Response(response)
     # def post(self, request):
     #     """Create a hello message with our name."""
     #
