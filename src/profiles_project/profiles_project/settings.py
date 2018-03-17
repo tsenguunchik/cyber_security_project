@@ -25,7 +25,10 @@ SECRET_KEY = 'q2z&(t!hx24g197lr94x4_44lz(-6g!-h!&y3*3jaovv@d4(@4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec2-52-14-163-115.us-east-2.compute.amazonaws.com']
+ALLOWED_HOSTS = [
+'ec2-52-14-163-115.us-east-2.compute.amazonaws.com',
+'localhost'
+]
 
 
 # Application definition
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework', # enable apps
     'rest_framework.authtoken',
     'profiles_api',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'profiles_project.urls'
@@ -71,7 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'profiles_project.wsgi.application'
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
