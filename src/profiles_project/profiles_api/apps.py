@@ -29,7 +29,7 @@ def generate_1000():
 
 def generate_1000k():
     # file_name = os.path.join(settings.BASE_DIR, 'top_1000.txt'),
-    with open('top_1000.txt', 'r') as file:
+    with open('clean_1000k.txt', 'r') as file:
         words = []
         for line in file:
             # words.append(line.strip())
