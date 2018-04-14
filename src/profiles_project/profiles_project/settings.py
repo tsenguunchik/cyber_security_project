@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
 'ec2-52-14-163-115.us-east-2.compute.amazonaws.com',
+'www.gostructure.com',
+'gostructure.com',    
 'localhost'
 ]
 
